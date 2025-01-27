@@ -2,8 +2,14 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
+const allowedOrigins = ["https://craveroute-food-order.web.app"]
+
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+}));
 
 app.get("/restaurants", async (req, res) => {
   let result = [];
