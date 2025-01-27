@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(cors({
-  origin: "https://craveroute-food-order.web.app",
+  origin: "*",
 }));
 
 app.get("/restaurants", async (req, res) => {
