@@ -2,13 +2,19 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const allowedOrigins = ["https://craveroute-food-order.web.app"]
+const allowedOrigins = ["https://craveroute-food-order.web.app"];
 
 const app = express();
 app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
 }));
 
 app.get("/restaurants", async (req, res) => {
